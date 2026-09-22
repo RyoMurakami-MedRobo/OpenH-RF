@@ -18,9 +18,18 @@ size_categories:
 
 # OpenH-RF Sub-Dataset — Rotational 3D US Raw Channel Data for Elevational SAF (Simulated + Measured Phantom)
 
-![B-mode frame of the measured phantom at -90 deg probe rotation, with the per-frame rotation-angle trajectory alongside it](assets/bmode.png)
+![Rotation sweep: B-mode reconstructed at 45 rotation angles spanning the array's 180 degree sweep, for the measured phantom scan at 30 mm](assets/rotation_sweep.gif)
 
-Frame 90 (~-90°) of [`data/experiment__acq_exp_30mm.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/wpi/data/experiment__acq_exp_30mm.hdf5) — one of the 5 real measured-phantom scans — reconstructed by `reconstruct.py`, alongside the per-frame probe rotation angle that this dataset adds.
+The array physically rotating 180° about its axial axis, one in-plane B-mode
+reconstruction per angle, for the measured-phantom scan
+[`data/experiment__acq_exp_30mm.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/wpi/data/experiment__acq_exp_30mm.hdf5) —
+the rotation this dataset's **elevational SAF (eSAF)** method exploits.
+Each frame is beamformed with the same `pipeline.yaml` used by `reconstruct.py`.
+
+<p align="center"><img src="assets/bmode.png" width="70%" alt="B-mode frame of the measured phantom at -90 deg probe rotation, with the per-frame rotation-angle trajectory alongside it"></p>
+
+The single reference frame above (frame 90, ~-90°) is `reconstruct.py`'s reference
+output, checked in at `assets/bmode.png`.
 
 ## Dataset Description
 Synthetic rotational 3D ultrasound acquisitions of point, pair, and off-axis targets, captured
