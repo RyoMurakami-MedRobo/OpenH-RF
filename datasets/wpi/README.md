@@ -18,6 +18,10 @@ size_categories:
 
 # OpenH-RF Sub-Dataset — Rotational 3D US Raw Channel Data for Elevational SAF (Simulated + Measured Phantom)
 
+![B-mode frame of the measured phantom at -90 deg probe rotation, with the per-frame rotation-angle trajectory alongside it](assets/bmode.png)
+
+Frame 90 (~-90°) of [`data/experiment__acq_exp_30mm.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/wpi/data/experiment__acq_exp_30mm.hdf5) — one of the 5 real measured-phantom scans — reconstructed by `reconstruct.py`, alongside the per-frame probe rotation angle that this dataset adds.
+
 ## Dataset Description
 Synthetic rotational 3D ultrasound acquisitions of point, pair, and off-axis targets, captured
 with an **elevation-focused 1D linear array** that is rotated 180° about its axial
@@ -138,8 +142,8 @@ the eSAF output produced with the published algorithm `matlab/saf/safrot_backpro
 (source): in-plane DAS → `recon_3d` → `safrot_backproj`, f-number 45/8). A FWHM-vs-depth
 overview across probes is `sim_dataset_out/dataset_overview_r4.png`
 (`sim/dataset_overview.m`, source). The zea `.hdf5` acquisitions are **hosted on Hugging
-Face** at <https://huggingface.co/datasets/RyoMurakami/OpenH-RF-eSAF> (git-LFS).
-The MATLAB `.mat`/`_ref.png` intermediates are
+Face** at <https://huggingface.co/datasets/nvidia/OpenH-RF/tree/main/wpi> (git-LFS,
+part of the unified OpenH-RF dataset repo). The MATLAB `.mat`/`_ref.png` intermediates are
 reproducible from source and kept on lab storage.
 
 ## Dataset Quantification
@@ -207,9 +211,12 @@ two-panel PNG: the B-mode image, and the per-frame probe **rotation angle**
 (from `metadata/probe_pose`, plotted in degrees) so downstream users know how to
 interpret the frame axis — the special data this dataset adds:
 ```
-python reconstruct.py --input data/baseline_R45_H8__point_z080_r4.hdf5 --output out.png
+python reconstruct.py
 ```
-The rotational **eSAF** across frames — the contribution of this dataset — is implemented in
+(the script takes no CLI arguments; edit the `INPUT`/`OUTPUT`/`FRAME_INDEX` constants
+at the top of the file to point at a different acquisition or frame). Reference output:
+`assets/bmode.png` — frame 90 (~-90° rotation) of `data/experiment__acq_exp_30mm.hdf5`,
+shown above. The rotational **eSAF** across frames — the contribution of this dataset — is implemented in
 `matlab/saf` (source) (`recon_3d` → `safrot_backproj`); per-probe before/after eSAF reference
 images and a FWHM-vs-depth overview accompany the MATLAB `.mat` release
 (`sim/dataset_overview.m`, source), and the resulting paired SAF volume is stored as

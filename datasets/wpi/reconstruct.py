@@ -32,14 +32,17 @@ import zea
 from zea import Config, File, Pipeline
 
 HERE = Path(__file__).parent
-DEFAULT_INPUT = "hf://nvidia/OpenH-RF/wpi/data/narrow_lateral_32el__point_z045_r0.hdf5"
-DEFAULT_OUTPUT = HERE / "outputs" / "reconstruct_example.png"
+DEFAULT_INPUT = "hf://nvidia/OpenH-RF/wpi/data/experiment__acq_exp_30mm.hdf5"
+DEFAULT_OUTPUT = HERE / "assets" / "bmode.png"
 CONFIG = HERE / "pipeline.yaml"
 
 # --- Inputs -----------------------------------------------------------------
 # Defaults stream straight from the published corpus. Swap any of these for a
-# local path to run against your own copy.
-INPUT = "hf://nvidia/OpenH-RF/wpi/data/narrow_lateral_32el__point_z045_r0.hdf5"
+# local path to run against your own copy. The default below is one of the 5
+# measured-phantom scans, which show real reflector/reverberation texture --
+# a more representative first look than the mostly-empty simulated point
+# targets (see the probe x target grid in data/manifest.json for those).
+INPUT = "hf://nvidia/OpenH-RF/wpi/data/experiment__acq_exp_30mm.hdf5"
 OUTPUT = DEFAULT_OUTPUT
 FRAME_INDEX = None  # rotation frame to beamform (default: closest to +-90 deg rotation)
 
