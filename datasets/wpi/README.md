@@ -18,33 +18,47 @@ size_categories:
 
 # OpenH-RF Sub-Dataset — Rotational 3D US Raw Channel Data for Elevational SAF (Simulated + Measured Phantom)
 
-![Top-view MIP animation: the naive (no-SAF) reconstruction distorting into a smeared arc as the probe rotates, next to the corrected eSAF top view](assets/esaf_topview_sweep.gif)
+<p align="center"><img src="assets/main.png" width="55%" alt="Top-view MIP overlay: magenta is the naive no-SAF reconstruction's rotational-smear arc, cyan is this dataset's paired eSAF label, white/pale-blue is where both agree on the true target"></p>
 
-**What eSAF actually buys you, seen from directly above the target (a top-view
-maximum-intensity-projection through the target depth).** Left: a target
-reconstructed the naive way — one in-plane B-mode per rotation angle, gridded
-straight into 3D by rotation angle — traces out the rotational-smear arc
-this dataset's Known Issues describe as the probe sweeps its 180°. Right:
-the same target's paired eSAF label (`custom/saf_bmode`, already shipped in
-every file), static for comparison. The red line marks the array's current
-physical orientation.
+**Main image (`assets/main.png`).** A top-view maximum-intensity-projection
+through the target depth, looking straight down the rotation axis, of a single
+target reconstructed two ways at once — encoded by color, not by side-by-side
+panels, both on the same dB scale:
+**magenta = naive** (one in-plane B-mode per rotation angle, gridded straight
+into 3D by rotation angle, no SAF), **cyan = this dataset's paired eSAF label**
+(`custom/saf_bmode`, already shipped in every file). Where the two agree —
+the true target — the overlay goes white / pale blue. The long magenta arc is
+exactly the rotational-smear artifact this dataset's Known Issues describe;
+eSAF collapses it back onto the target.
 
-<p align="center"><img src="assets/esaf_topview_before_after.png" width="85%" alt="Before/after top-view MIP comparison: rotational smear arc vs. the eSAF-corrected reconstruction, with arc-FWHM annotated"></p>
+Simulated `tall_elev_H12` probe, point target at **20 mm depth, 6 mm off the
+rotation axis**
+([`data/tall_elev_H12__point_z020_r6.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/wpi/data/tall_elev_H12__point_z020_r6.hdf5),
+arc-FWHM 1.26 mm → 0.39 mm, ~3.2×, see that file's
+`custom/saf_bmode/values.description`). The sim grid's depth axis is only
+{20, 45, 80, 130} mm — there is no simulated 10 mm case (10 mm exists only
+as a measured-phantom scan) — so this is the shallowest off-axis (r0 ≥ 4 mm)
+simulated case available, chosen for the largest before→after gain among the
+probe/radius combinations at that depth.
 
-Both figures use the **simulated** `tall_elev_H12` probe's point target at
-**20 mm depth, 6 mm off the rotation axis**
-([`data/tall_elev_H12__point_z020_r6.hdf5`](https://huggingface.co/datasets/nvidia/OpenH-RF/blob/main/wpi/data/tall_elev_H12__point_z020_r6.hdf5))
-— the sim grid's depth axis is {20, 45, 80, 130} mm (no 10 mm simulated case
-exists; 10 mm is only in the measured-phantom set), so this is the shallowest
-off-axis (r0 ≥ 4 mm) simulated case available, and among the probe/radius
-combinations at that depth it has the largest before→after arc-FWHM gain
-(1.26 mm → 0.39 mm, ~3.2×). See `custom/saf_bmode/values`'s `description`
-attribute in that file for the exact numbers this caption quotes.
+<p align="center"><img src="assets/esaf_topview_sweep.gif" width="55%" alt="Animated version: the naive magenta reconstruction accumulating into the smear arc as the probe sweeps its 180 degree rotation, next to the static cyan eSAF label"></p>
+
+Same color coding, animated: the magenta (naive) side fills in as the probe
+sweeps its 180° rotation, one angle at a time, while the cyan (eSAF) side is
+already fully known throughout — this is what accumulates if you *don't* run
+eSAF on this data.
+
+<p align="center"><img src="assets/esaf_topview_before_after.png" width="85%" alt="Before/after top-view MIP comparison as two labeled panels with mm axes and arc-FWHM numbers"></p>
+
+The same comparison again, as two labeled panels with axes and the arc-FWHM
+numbers overlaid, for readers who want the scale bar and the numbers rather
+than the color mapping above.
 
 <p align="center"><img src="assets/bmode.png" width="70%" alt="B-mode frame of the measured phantom at -90 deg probe rotation, with the per-frame rotation-angle trajectory alongside it"></p>
 
-The single reference frame above (frame 90, ~-90°) is `reconstruct.py`'s reference
-output, checked in at `assets/bmode.png`.
+Unrelated to the eSAF comparison above: `reconstruct.py`'s own reference
+output — a single measured-phantom frame (frame 90, ~-90°) plus the per-frame
+rotation-angle trajectory this dataset adds — checked in at `assets/bmode.png`.
 
 ## Dataset Description
 Synthetic rotational 3D ultrasound acquisitions of point, pair, and off-axis targets, captured
