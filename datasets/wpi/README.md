@@ -41,18 +41,21 @@ as a measured-phantom scan) — so this is the shallowest off-axis (r0 ≥ 4 mm)
 simulated case available, chosen for the largest before→after gain among the
 probe/radius combinations at that depth.
 
-<p align="center"><img src="assets/esaf_topview_sweep.gif" width="55%" alt="Animated version: the naive magenta reconstruction accumulating into the smear arc as the probe sweeps its 180 degree rotation, next to the static cyan eSAF label"></p>
+<p align="center"><img src="assets/esaf_topview_sweep.gif" width="55%" alt="Animated version: the naive magenta reconstruction accumulating into the smear arc as the probe sweeps its 180 degree rotation about the marked rotation axis"></p>
 
-Same color coding, animated: the magenta (naive) side fills in as the probe
-sweeps its 180° rotation, one angle at a time, while the cyan (eSAF) side is
-already fully known throughout — this is what accumulates if you *don't* run
-eSAF on this data.
+Same color coding, animated, with the geometry made explicit: the small
+circle is the **rotation axis** (the probe's own axial axis, perpendicular to
+the page), and the white line through it is the array's **current physical
+orientation** as it sweeps 180°. The magenta (naive) side fills in one angle
+at a time as the line sweeps — this is what accumulates if you *don't* run
+eSAF on this data — while the cyan (eSAF) side is already fully known
+throughout.
 
-<p align="center"><img src="assets/esaf_topview_before_after.png" width="85%" alt="Before/after top-view MIP comparison as two labeled panels with mm axes and arc-FWHM numbers"></p>
+<p align="center"><img src="assets/esaf_topview_before_after.png" width="70%" alt="Annotated version of the same top-view MIP: mm axes, the rotation axis marked and its 180 degree sweep direction, a color legend, and the arc-FWHM numbers"></p>
 
-The same comparison again, as two labeled panels with axes and the arc-FWHM
-numbers overlaid, for readers who want the scale bar and the numbers rather
-than the color mapping above.
+The same overlay again, annotated for readers who want the scale bar, an
+explicit color legend, and the rotation geometry spelled out rather than
+left to the caption above.
 
 <p align="center"><img src="assets/bmode.png" width="70%" alt="B-mode frame of the measured phantom at -90 deg probe rotation, with the per-frame rotation-angle trajectory alongside it"></p>
 
